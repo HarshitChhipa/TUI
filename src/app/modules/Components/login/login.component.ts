@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../../core/auth/services/authentication.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 
 @Component({
@@ -14,9 +14,11 @@ export class LoginComponent implements OnInit {
   loginDetails: FormGroup;
   loading = false;
   submitted = false;
+  returnUrl: string;
 
   constructor(private fb: FormBuilder,
               private router: Router,
+              private route: ActivatedRoute,
               private authService: AuthenticationService) {
     if (this.authService.currentUserValue) {
       this.router.navigate(['/']);
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required]
     });
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get f() {
@@ -44,7 +47,9 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authService.login(this.f.email.value, this.f.password.value).pipe(first()).subscribe(
       data => {
-        this.router.navigate(['home']);
+        console.log(this.returnUrl, 'This is return URL');
+        this.router.navigateByUrl(this.returnUrl);
+        console.log(this.router.navigate([this.returnUrl]));
       },
       error1 => {
         this.loading = false;

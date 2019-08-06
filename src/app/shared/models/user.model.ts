@@ -1,8 +1,10 @@
 export class UserModel {
-  id: number;
-  username: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  token: string;
+  kind: string;
+  localId: string;
+  email: string;
+  displayName: string;
+  idToken: string;
+  registered: boolean;
+  refreshToken: string;
+  expiresIn: number;
 }

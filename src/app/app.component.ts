@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {UserModel} from './shared/models/user.model';
+import {Router} from '@angular/router';
+import {AuthenticationService} from './core/auth/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'twitter-UI';
+  currentUser: UserModel;
+
+  constructor(private router: Router,
+              private authService: AuthenticationService) {
+
+    this.authService.currentUser.subscribe(x => this.currentUser = x);
+
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

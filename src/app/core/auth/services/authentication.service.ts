@@ -33,12 +33,14 @@ export class AuthenticationService {
         password
       }).pipe(
       map(user => {
-        if (!!user && user.token) {
+        console.log(user, 'This is user data');
+        if (!!user && user.idToken) {
 
           // Storing the token in local storage with key currentUser
 
           localStorage.setItem('currentUser', JSON.stringify(user));
 
+          console.log('This is Jwt Token', user.token);
           // cetting the users data in currentUser's Context
 
           this.currentUserSubject.next(user);
