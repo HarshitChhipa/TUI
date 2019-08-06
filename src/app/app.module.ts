@@ -14,7 +14,7 @@ import {ErrorInterceptor} from './core/auth/interceptors/error.interceptor';
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

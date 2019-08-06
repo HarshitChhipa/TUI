@@ -40,7 +40,6 @@ export class AuthenticationService {
 
           localStorage.setItem('currentUser', JSON.stringify(user));
 
-          console.log('This is Jwt Token', user.token);
           // cetting the users data in currentUser's Context
 
           this.currentUserSubject.next(user);
