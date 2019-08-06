@@ -21,6 +21,9 @@ export class ErrorInterceptor implements HttpInterceptor {
       if (err.status === 401) {
 
         // if status is 401 we will logout the user
+
+        // TODO: Remove this Comment after resolving the unauthorized issue in Tweet API
+
         // this.authService.logout();
         // location.reload(true);
       }

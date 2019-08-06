@@ -21,7 +21,7 @@ export class JwtInterceptor implements HttpInterceptor {
     // Checking that Token is there or not
     if (currentUser && currentUser.idToken) {
 
-      // Assigining or cloning the token
+      // Assigning or cloning the token
       req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${currentUser.idToken}`
