@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthenticationService} from '../../../core/auth/services/authentication.service';
+import {Router} from '@angular/router';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -9,8 +12,15 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   loginDetails: FormGroup;
+  loading = false;
+  submitted = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+              private router: Router,
+              private authService: AuthenticationService) {
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
   }
 
   ngOnInit() {
@@ -20,7 +30,25 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login() {
-    console.log(this.loginDetails.value);
+  get f() {
+    return this.loginDetails.controls;
+  }
+
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.loginDetails.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    this.authService.login(this.f.email.value, this.f.password.value).pipe(first()).subscribe(
+      data => {
+        this.router.navigate(['home']);
+      },
+      error1 => {
+        this.loading = false;
+      }
+    );
   }
 }

@@ -24,12 +24,12 @@ export class AuthenticationService {
    * Method call when user is loggin into the system
    */
 
-  login(username: string, password: string) {
+  login(email: string, password: string) {
 
     return this.http.post<any>(
       'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyD8W0pWlju6wOPr3ih_aio2gNiVKHd9F8g',
       {
-        username,
+        email,
         password
       }).pipe(
       map(user => {

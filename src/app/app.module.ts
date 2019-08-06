@@ -5,7 +5,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './modules/Components/login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HomeComponent } from './modules/home/home.component';
+import {HomeComponent} from './modules/home/home.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,8 +16,8 @@ import { HomeComponent } from './modules/home/home.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],
